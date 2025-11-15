@@ -1201,16 +1201,15 @@
         font-size: 0.9rem;
       }
     }
-     .container {
+      .gallery-wrapper-main {
             max-width: 2000px;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px;
         }
 
-        h1 {
+        .gallery-heading-text {
             color: #333;
             text-align: center;
             margin-bottom: 40px;
@@ -1218,16 +1217,16 @@
             font-weight: 700;
         }
 
-        .video-grid {
+        .media-grid-layout {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 84px;
+            gap: 24px;
             width: 100%;
-            max-width: 1900px;
+            max-width: 2000px;
             margin: 0 auto;
         }
 
-        .video-card {
+        .media-item-box {
             background: white;
             border-radius: 16px;
             overflow: hidden;
@@ -1236,12 +1235,12 @@
             position: relative;
         }
 
-        .video-card:hover {
+        .media-item-box:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .video-wrapper {
+        .player-container-area {
             position: relative;
             width: 100%;
             padding-bottom: 177.78%; /* 9:16 aspect ratio for vertical videos */
@@ -1249,7 +1248,7 @@
             overflow: hidden;
         }
 
-        video {
+        .media-element-player {
             position: absolute;
             top: 0;
             left: 0;
@@ -1258,7 +1257,7 @@
             object-fit: cover;
         }
 
-        .video-controls {
+        .overlay-controls-section {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -1269,11 +1268,11 @@
             transition: opacity 0.3s ease;
         }
 
-        .video-card:hover .video-controls {
+        .media-item-box:hover .overlay-controls-section {
             opacity: 1;
         }
 
-        .play-btn {
+        .action-button-circle {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -1291,17 +1290,17 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .play-btn:hover {
+        .action-button-circle:hover {
             transform: translate(-50%, -50%) scale(1.1);
             background: white;
         }
 
-        .play-btn.playing {
+        .action-button-circle.active-state {
             opacity: 0;
             pointer-events: none;
         }
 
-        .play-icon {
+        .triangle-shape-icon {
             width: 0;
             height: 0;
             border-left: 20px solid #667eea;
@@ -1310,14 +1309,14 @@
             margin-left: 4px;
         }
 
-        .pause-icon {
+        .bars-shape-icon {
             display: none;
             width: 20px;
             height: 20px;
         }
 
-        .pause-icon::before,
-        .pause-icon::after {
+        .bars-shape-icon::before,
+        .bars-shape-icon::after {
             content: '';
             position: absolute;
             background: #667eea;
@@ -1325,31 +1324,17 @@
             height: 20px;
         }
 
-        .pause-icon::before {
+        .bars-shape-icon::before {
             left: 0;
         }
 
-        .pause-icon::after {
+        .bars-shape-icon::after {
             right: 0;
         }
 
-        .video-info {
-            padding: 15px;
-        }
 
-        .video-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
 
-        .video-description {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .progress-bar {
+        .timeline-track-bar {
             width: 100%;
             height: 4px;
             background: rgba(255, 255, 255, 0.3);
@@ -1358,55 +1343,63 @@
             cursor: pointer;
         }
 
-        .progress-fill {
+        .timeline-indicator-fill {
             height: 100%;
             background: #667eea;
             width: 0%;
             transition: width 0.1s linear;
         }
-
-        @media (max-width: 768px) {
-            .video-grid {
+  @media (max-width: 768px) {
+            .media-grid-layout {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                gap: 8px;
             }
 
             body {
-                padding: 20px 15px;
+                padding: 10px 0;
             }
 
-            h1 {
-                margin-bottom: 25px;
+            .gallery-wrapper-main {
+                padding: 0 8px;
             }
 
-            .play-btn {
+            .gallery-heading-text {
+                margin-bottom: 15px;
+                font-size: 24px;
+            }
+
+            .action-button-circle {
                 width: 50px;
                 height: 50px;
             }
 
-            .play-icon {
+            .triangle-shape-icon {
                 border-left-width: 14px;
                 border-top-width: 9px;
                 border-bottom-width: 9px;
             }
+
+            .media-item-box {
+                border-radius: 10px;
+            }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-            .video-grid {
+            .media-grid-layout {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 18px;
-                max-width: 2000px;
+            }
+
+            body {
+                padding: 30px 15px;
             }
         }
 
         @media (min-width: 1025px) {
-            .video-grid {
+            .media-grid-layout {
                 grid-template-columns: repeat(4, 1fr);
-                 max-width: 2000px;
-                
             }
         }
-
   </style>
 </head>
 <body>
@@ -1701,83 +1694,80 @@
     </div>
   </section>
 
-  <div class="container">
-        <h1>View More...</h1>
-        <div class="video-grid">
-            <div class="video-card" data-video="1">
-                <div class="video-wrapper">
-                    <video preload="metadata">
+   <div class="gallery-wrapper-main">
+        <h1 class="gallery-heading-text">Video Gallery</h1>
+        <div class="media-grid-layout">
+            <div class="media-item-box" data-media-id="1">
+                <div class="player-container-area">
+                    <video class="media-element-player" preload="metadata">
                         <source src="videoone.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <button class="play-btn">
-                        <div class="play-icon"></div>
+                    <button class="action-button-circle">
+                        <div class="triangle-shape-icon"></div>
                     </button>
-                    <div class="video-controls">
-                        <div class="progress-bar">
-                            <div class="progress-fill"></div>
+                    <div class="overlay-controls-section">
+                        <div class="timeline-track-bar">
+                            <div class="timeline-indicator-fill"></div>
                         </div>
                     </div>
                 </div>
-               
             </div>
 
-            <div class="video-card" data-video="2">
-                <div class="video-wrapper">
-                    <video preload="metadata">
+            <div class="media-item-box" data-media-id="2">
+                <div class="player-container-area">
+                    <video class="media-element-player" preload="metadata">
                         <source src="videotwo.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <button class="play-btn">
-                        <div class="play-icon"></div>
+                    <button class="action-button-circle">
+                        <div class="triangle-shape-icon"></div>
                     </button>
-                    <div class="video-controls">
-                        <div class="progress-bar">
-                            <div class="progress-fill"></div>
+                    <div class="overlay-controls-section">
+                        <div class="timeline-track-bar">
+                            <div class="timeline-indicator-fill"></div>
                         </div>
                     </div>
                 </div>
-                
             </div>
 
-            <div class="video-card" data-video="3">
-                <div class="video-wrapper">
-                    <video preload="metadata">
+            <div class="media-item-box" data-media-id="3">
+                <div class="player-container-area">
+                    <video class="media-element-player" preload="metadata">
                         <source src="videothree.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <button class="play-btn">
-                        <div class="play-icon"></div>
+                    <button class="action-button-circle">
+                        <div class="triangle-shape-icon"></div>
                     </button>
-                    <div class="video-controls">
-                        <div class="progress-bar">
-                            <div class="progress-fill"></div>
+                    <div class="overlay-controls-section">
+                        <div class="timeline-track-bar">
+                            <div class="timeline-indicator-fill"></div>
                         </div>
                     </div>
                 </div>
-              
             </div>
 
-            <div class="video-card" data-video="4">
-                <div class="video-wrapper">
-                    <video preload="metadata">
+            <div class="media-item-box" data-media-id="4">
+                <div class="player-container-area">
+                    <video class="media-element-player" preload="metadata">
                         <source src="videofour.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <button class="play-btn">
-                        <div class="play-icon"></div>
+                    <button class="action-button-circle">
+                        <div class="triangle-shape-icon"></div>
                     </button>
-                    <div class="video-controls">
-                        <div class="progress-bar">
-                            <div class="progress-fill"></div>
+                    <div class="overlay-controls-section">
+                        <div class="timeline-track-bar">
+                            <div class="timeline-indicator-fill"></div>
                         </div>
                     </div>
                 </div>
-               
             </div>
         </div>
     </div>
 
+ 
   <section class="contact" id="contact">
     <h2 class="section-title">Get In Touch</h2>
     <p class="section-subtitle">For bookings and collaborations, connect with us today</p>
@@ -1942,61 +1932,61 @@
       startAutoPlay();
     });
      document.addEventListener('DOMContentLoaded', () => {
-            const videoCards = document.querySelectorAll('.video-card');
+            const mediaBoxes = document.querySelectorAll('.media-item-box');
 
-            videoCards.forEach(card => {
-                const video = card.querySelector('video');
-                const playBtn = card.querySelector('.play-btn');
-                const progressBar = card.querySelector('.progress-bar');
-                const progressFill = card.querySelector('.progress-fill');
+            mediaBoxes.forEach(box => {
+                const mediaPlayer = box.querySelector('.media-element-player');
+                const actionBtn = box.querySelector('.action-button-circle');
+                const trackBar = box.querySelector('.timeline-track-bar');
+                const indicatorFill = box.querySelector('.timeline-indicator-fill');
 
                 // Play/Pause functionality
-                playBtn.addEventListener('click', (e) => {
+                actionBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    togglePlay();
+                    togglePlayback();
                 });
 
-                video.addEventListener('click', () => {
-                    togglePlay();
+                mediaPlayer.addEventListener('click', () => {
+                    togglePlayback();
                 });
 
-                function togglePlay() {
-                    if (video.paused) {
-                        video.play();
-                        playBtn.classList.add('playing');
+                function togglePlayback() {
+                    if (mediaPlayer.paused) {
+                        mediaPlayer.play();
+                        actionBtn.classList.add('active-state');
                     } else {
-                        video.pause();
-                        playBtn.classList.remove('playing');
+                        mediaPlayer.pause();
+                        actionBtn.classList.remove('active-state');
                     }
                 }
 
                 // Update progress bar
-                video.addEventListener('timeupdate', () => {
-                    const progress = (video.currentTime / video.duration) * 100;
-                    progressFill.style.width = `${progress}%`;
+                mediaPlayer.addEventListener('timeupdate', () => {
+                    const progressPercent = (mediaPlayer.currentTime / mediaPlayer.duration) * 100;
+                    indicatorFill.style.width = `${progressPercent}%`;
                 });
 
                 // Seek functionality
-                progressBar.addEventListener('click', (e) => {
-                    const rect = progressBar.getBoundingClientRect();
-                    const pos = (e.clientX - rect.left) / rect.width;
-                    video.currentTime = pos * video.duration;
+                trackBar.addEventListener('click', (e) => {
+                    const barRect = trackBar.getBoundingClientRect();
+                    const clickPosition = (e.clientX - barRect.left) / barRect.width;
+                    mediaPlayer.currentTime = clickPosition * mediaPlayer.duration;
                 });
 
                 // Reset play button when video ends
-                video.addEventListener('ended', () => {
-                    playBtn.classList.remove('playing');
-                    progressFill.style.width = '0%';
+                mediaPlayer.addEventListener('ended', () => {
+                    actionBtn.classList.remove('active-state');
+                    indicatorFill.style.width = '0%';
                 });
 
                 // Pause other videos when one plays
-                video.addEventListener('play', () => {
-                    videoCards.forEach(otherCard => {
-                        if (otherCard !== card) {
-                            const otherVideo = otherCard.querySelector('video');
-                            const otherPlayBtn = otherCard.querySelector('.play-btn');
-                            otherVideo.pause();
-                            otherPlayBtn.classList.remove('playing');
+                mediaPlayer.addEventListener('play', () => {
+                    mediaBoxes.forEach(otherBox => {
+                        if (otherBox !== box) {
+                            const otherPlayer = otherBox.querySelector('.media-element-player');
+                            const otherBtn = otherBox.querySelector('.action-button-circle');
+                            otherPlayer.pause();
+                            otherBtn.classList.remove('active-state');
                         }
                     });
                 });
