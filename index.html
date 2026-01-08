@@ -3,9 +3,1260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Himanshu Pailwal</title>
+  <title>Safar with Himanshu | Premier Event Host</title>
+  
+  <!-- Premium Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <!-- GSAP Core and ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #ffffff; 
+      --accent: #f5f5f5;
+      --bg: #000000;
+      --text: #ffffff;
+      --border: rgba(255, 255, 255, 0.2);
+      --font-premium: 'Cormorant Garamond', serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img {
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .reveal-item { 
+      opacity: 0; 
+      transform: translateY(30px);
+    }
+
+    /* Premium Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(10px);
+      padding: 20px 5%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav h1 { 
+      font-family: var(--font-premium);
+      font-size: clamp(1.1rem, 3vw, 1.8rem); 
+      letter-spacing: 3px; 
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .nav-cta {
+      position: absolute;
+      right: 5%;
+      color: var(--text);
+      text-decoration: none;
+      font-size: clamp(0.7rem, 2vw, 0.9rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 5px;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.7;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+      width: 28px;
+      height: 22px;
+      position: absolute;
+      right: 5%;
+    }
+
+    .hamburger span {
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: absolute;
+      left: 0;
+    }
+
+    .hamburger span:nth-child(1) { top: 0; }
+    .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .hamburger span:nth-child(3) { bottom: 0; }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translateY(-50%);
+      top: 50%;
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translateY(50%);
+      bottom: 50%;
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 320px;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-content {
+      padding: 100px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .mobile-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-item:hover {
+      opacity: 0.7;
+      padding-left: 10px;
+    }
+
+    .mobile-menu-item i {
+      font-size: 1.3rem;
+      width: 28px;
+      text-align: center;
+    }
+
+    section { 
+      padding: clamp(60px, 12vh, 120px) 5%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 5% 60px;
+      gap: 0;
+    }
+
+    .hero-video-container {
+      position: relative;
+      width: clamp(260px, 70vw, 360px);
+      height: clamp(347px, 93vw, 480px);
+      margin-bottom: 35px;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .hero-profile {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-control {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .video-control:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .video-control i {
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-family: var(--font-premium);
+      font-size: clamp(2.2rem, 9vw, 7rem);
+      font-weight: 300;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    #typewriter {
+      color: var(--primary);
+      font-size: clamp(0.85rem, 3vw, 1.4rem);
+      letter-spacing: clamp(2px, 1vw, 8px);
+      text-transform: uppercase;
+      font-weight: 300;
+      min-height: 1.5em;
+      text-align: center;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: var(--font-premium);
+      font-size: clamp(2.2rem, 7vw, 4.5rem);
+      text-align: center;
+      margin-bottom: clamp(35px, 7vh, 60px);
+      color: var(--primary);
+      font-weight: 400;
+      letter-spacing: 2px;
+      width: 100%;
+    }
+
+    /* Horizontal Scroll Section */
+    .horizontal-wrapper {
+      width: 100%;
+      overflow: hidden;
+      background:black;
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-family: var(--font-premium);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      text-align: center;
+      margin-bottom: 60px;
+      font-weight: 400;
+    }
+
+    .horizontal-container {
+      display: flex;
+      padding-left: 5%;
+      will-change: transform;
+    }
+
+    .service-card {
+      flex: 0 0 350px;
+      height: 450px;
+      margin-right: 30px;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.4s ease;
+      position: relative;
+    }
+
+    .service-card:hover {
+      border-color: var(--primary);
+    }
+
+    .service-card i {
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+      color: var(--primary);
+      opacity: 0.8;
+    }
+
+    .service-card span {
+      font-family: var(--font-premium);
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .service-card .count {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 0.8rem;
+      opacity: 0.3;
+      font-family: var(--font-body);
+    }
+
+    /* Adaptive Grid */
+    .grid-3x3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(15px, 3vw, 25px);
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* Cards */
+    .card {
+      background: #050505;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: clamp(35px, 5vw, 55px) 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 170px;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      will-change: transform;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      background: #0a0a0a;
+    }
+
+    .card i { 
+      color: var(--primary); 
+      margin-bottom: clamp(12px, 3vw, 20px); 
+      font-size: clamp(2.2rem, 5vw, 3.2rem); 
+    }
+
+    .card span { 
+      font-family: var(--font-premium); 
+      font-size: clamp(1rem, 2.5vw, 1.3rem); 
+      letter-spacing: 2px; 
+      text-transform: uppercase;
+    }
+
+    /* About Content */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(35px, 7vw, 70px);
+      align-items: center;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .about-text {
+      text-align: center;
+    }
+
+    .about-text p {
+      font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+      font-weight: 200;
+      margin-bottom: 22px;
+      color: #ccc;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .about-img {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .about-img img {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+    }
+
+    /* Image Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(10px, 2vw, 18px);
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      filter: grayscale(0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .gallery-grid img:hover {
+      filter: grayscale(0);
+      transform: scale(1.02);
+    }
+
+   #testimonials {
+  padding: 100px 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.testimonials-window {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  /* Adds a subtle fade effect on the edges */
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.testimonials-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  padding: 20px 0;
+}
+
+.testimonial-card {
+  width: clamp(300px, 40vw, 500px);
+  background: #080808;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-left: 2px solid var(--primary);
+  padding: 40px;
+  margin: 0 15px;
+  flex-shrink: 0;
+}
+
+.testimonial-card p {
+  font-family: var(--font-premium);
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-bottom: 25px;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.testimonial-card h4 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.testimonial-card h4 span {
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+    /* Contact Footer */
+    footer {
+      text-align: center;
+      padding: clamp(60px, 12vh, 100px) 5%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    footer h2 { 
+      font-family: var(--font-premium); 
+      font-size: clamp(2.2rem, 7vw, 4.5rem); 
+      color: var(--primary); 
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: clamp(25px, 4vw, 45px);
+      font-weight: 200;
+      letter-spacing: 2px;
+      margin-bottom: 45px;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+    /* Hero Stats Styling */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 40px);
+  margin-top: 40px;
+  width: 100%;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-premium);
+  font-size: clamp(2.0rem, 4vw, 2.5rem);
+  font-weight: 400;
+  color: var(--primary);
+  display: inline-block;
+}
+
+.stat-suffix {
+  font-family: var(--font-premium);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--primary);
+}
+
+.stat-item p {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Adjustments for Stats */
+@media (max-width: 600px) {
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-top: 50px;
+  }
+  .stat-divider {
+    display: none;
+  }
+}
+
+    /* Desktop - Side by Side Hero */
+    @media (min-width: 900px) {
+      .hero {
+        flex-direction: row;
+        gap: clamp(50px, 7vw, 90px);
+        padding: 100px 7% 80px;
+        align-items: center;
+      }
+
+      .hero-video-container {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        width: clamp(300px, 38vw, 400px);
+        height: clamp(400px, 51vw, 533px);
+      }
+
+      .hero-content {
+        flex: 1;
+        text-align: left;
+      }
+
+      .hero h2 {
+        text-align: left;
+      }
+
+      #typewriter {
+        text-align: left;
+      }
+
+      .about-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .about-text {
+        text-align: left;
+      }
+
+      .about-text p {
+        text-align: left;
+      }
+
+      .grid-3x3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Tablet Range */
+    @media (min-width: 600px) and (max-width: 899px) {
+      .grid-3x3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 768px) {
+      nav {
+        padding: 18px 5%;
+      }
+
+      nav h1 {
+        letter-spacing: 2px;
+        font-size: 1rem;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 50px 5%;
+      }
+
+      .hero {
+        padding: 85px 5% 55px;
+      }
+    }
+
+    /* Extra Small Mobile */
+    @media (max-width: 480px) {
+      .grid-3x3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .card {
+        padding: 30px 18px;
+        min-height: 150px;
+      }
+
+      .card i {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .card span {
+        font-size: 0.95rem;
+        letter-spacing: 1.5px;
+      }
+
+      .testimonial {
+        padding: 20px 18px;
+      }
+    }
+
+    /* Performance optimizations */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1 style="text-align: center;">Pay 500/- to continue</h1>
+
+  <!-- Navigation -->
+  <nav>
+    <h1>Safar with Himanshu</h1>
+    <a href="tel:+917877075819" class="nav-cta">Inquire Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-content">
+      <a href="tel:+917877075819" class="mobile-menu-item">
+        <i class="fas fa-phone"></i>
+        <span>Call Now</span>
+      </a>
+      <a href="https://wa.me/917877075819" class="mobile-menu-item" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+      <a href="mailto:himanshupaliwal1503@gmail.com" class="mobile-menu-item">
+        <i class="fas fa-envelope"></i>
+        <span>Email</span>
+      </a>
+      <a href="https://www.instagram.com/safar_with_himanshu" class="mobile-menu-item" target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+    </div>
+  </div>
+
+ <!-- Hero Section -->
+<section class="hero">
+  <div class="hero-video-container reveal-item">
+    <video class="hero-profile" id="heroVideo" loop playsinline>
+      <source src="Videotwo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <button class="video-control" id="videoControl" aria-label="Play/Pause Video">
+      <i class="fas fa-play" id="playIcon"></i>
+    </button>
+  </div>
+
+  <div class="hero-content">
+    <h2 class="reveal-item">Himanshu Paliwal</h2>
+    <div id="typewriter" class="reveal-item"></div>
+    
+    <!-- New Stats Section -->
+    <div class="hero-stats reveal-item">
+      <div class="stat-item">
+        <span class="stat-number" data-target="500">0</span><span class="stat-suffix">+</span>
+        <p>Events Hosted</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="6">0</span><span class="stat-suffix">+</span>
+        <p>Years Experience</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+        <p>Client Satisfaction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Horizontal Services Section -->
+  <div class="horizontal-wrapper">
+    <h3 class="section-title reveal-item">Curated Services</h3>
+    <div class="horizontal-container" id="horizontal-container">
+      
+      <div class="service-card">
+        <div class="count">01</div>
+        <i class="fas fa-heart"></i>
+        <span>Weddings</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">02</div>
+        <i class="fas fa-briefcase"></i>
+        <span>Corporate</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">03</div>
+        <i class="fas fa-om"></i>
+        <span>Festivals</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">04</div>
+        <i class="fas fa-child"></i>
+        <span>Baby Shower</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">05</div>
+        <i class="fas fa-graduation-cap"></i>
+        <span>College</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">06</div>
+        <i class="fas fa-users-rays"></i>
+        <span>Socials</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">07</div>
+        <i class="fas fa-swimming-pool"></i>
+        <span>Pool Party</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">08</div>
+        <i class="fas fa-microphone-lines"></i>
+        <span>Concerts</span>
+      </div>
+
+      <div class="service-card">
+        <div class="count">09</div>
+        <i class="fas fa-crown"></i>
+        <span>Private</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="about-layout">
+      <div class="about-text">
+        <h3 class="section-title reveal-item" style="margin-bottom: 30px;">The Journey</h3>
+        <p class="reveal-item">Anchor Himanshu Paliwal is a distinguished and versatile host based in the City of Lakes — Udaipur. Since 2019, he has been captivating audiences with his refined energy.</p>
+        <p class="reveal-item">With a portfolio of over 350+ events, "Safar with Himanshu" is more than just anchoring; it is a commitment to creating extraordinary memories through sophisticated storytelling.</p>
+      </div>
+      <div class="about-img reveal-item">
+        <img src="abt (1).png" alt="Professional Host">
+      </div>
+    </div>
+  </section>
+
+  <!-- Reach Section -->
+  <section id="reach" style="background: #050505;">
+    <h3 class="section-title reveal-item">My Presence</h3>
+    <div class="grid-3x3">
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Udaipur</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Indore</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Ahmedabad</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Jaipur</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Ujjain</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Bhilwara</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Kumbhalgarh</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Chittaurgarh</span></div>
+      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Banswara</span></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h3 class="section-title reveal-item">Visual Safar</h3>
+    <div class="gallery-grid">
+        <img src="newpic.jpeg" class="reveal-item" alt="Gallery Image">
+      <img src="Newpic2.jpeg" class="reveal-item" alt="Gallery Image">
+      <img src="newpic3.jpeg" class="reveal-item" alt="Gallery Image">
+      <img src="pro3.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="galleryone.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="pro2.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="slide2.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="slide3.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="pro.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="gallerytwo.jpg" class="reveal-item" alt="Gallery Image">
+    </div>
+  </section>
+
+ <!-- Testimonials -->
+<section id="testimonials" class="testimonials-section">
+  <h3 class="section-title reveal-item">Client Voices</h3>
+  
+  <div class="testimonials-window">
+    <div class="testimonials-track" id="testimonialTrack">
+      <!-- Item 1 -->
+      <div class="testimonial-card">
+        <p>"The entire wedding was brought to life with his hosting. I'll recommend him as the best host."</p>
+        <h4>RINKESH MUNGANIYA <span>| Banswara</span></h4>
+      </div>
+      <!-- Item 2 -->
+      <div class="testimonial-card">
+        <p>"We met at an event in Kumbhalgarh. I am a professional photographer and his nature and anchoring was so good!"</p>
+        <h4>NAVNEET SINGH</h4>
+      </div>
+      <!-- Item 3 -->
+      <div class="testimonial-card">
+        <p>"He is truly the best anchor in Udaipur. His energy, spontaneity, and charm keep the audience engaged."</p>
+        <h4>ANONYMOUS CLIENT</h4>
+      </div>
+      <!-- Item 4 -->
+      <div class="testimonial-card">
+        <p>"Himanshu Paliwal is an exceptional anchor. He creates an experience filled with energy and humor."</p>
+        <h4>CLIENT REVIEW</h4>
+      </div>
+      <!-- Item 5 -->
+      <div class="testimonial-card">
+        <p>"Best anchor in Udaipur! At my parents' anniversary, you literally rocked the stage and mesmerized everyone."</p>
+        <h4>NITIN PUROHIT</h4>
+      </div>
+      <!-- Item 6 -->
+      <div class="testimonial-card">
+        <p>"Outstanding Corporate Event Host. Confident, professional, and knows exactly how to connect with the audience."</p>
+        <h4>CORPORATE CLIENT</h4>
+      </div>
+      <!-- Item 7 -->
+      <div class="testimonial-card">
+        <p>"Himanshu ji ne mere relative ke baby shower ki vibe hi alag bana di thi! Full-on entertainment."</p>
+        <h4>PRIVATE EVENT CLIENT</h4>
+      </div>
+      <!-- Item 8 -->
+      <div class="testimonial-card">
+        <p>"I have no words to describe your performance. You handled the stage with great confidence."</p>
+        <h4>SWATI SHARMA</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer>
+    <h2 class="reveal-item">Safar with Himanshu</h2>
+    <p class="reveal-item" style="letter-spacing: 4px; margin-bottom: 30px;">HIMANSHUPALIWAL1503@GMAIL.COM</p>
+    <div class="footer-links reveal-item">
+      <a href="https://www.instagram.com/safar_with_himanshu" target="_blank" rel="noopener" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://wa.me/917877075819" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://youtube.com/@anchor_himanshu" target="_blank" rel="noopener" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="mailto:himanshupaliwal1503@gmail.com" aria-label="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    <p class="reveal-item" style="margin-top: 45px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px;">© 2026 SAFAR WITH HIMANSHU</p>
+  </footer>
+
+  <script>
+    // Performance optimization: Reduce unnecessary reflows
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Video Play/Pause Control
+    const video = document.getElementById('heroVideo');
+    const videoControl = document.getElementById('videoControl');
+    const playIcon = document.getElementById('playIcon');
+
+    // Auto-play video when page loads
+    window.addEventListener('load', () => {
+      video.play().catch(err => {
+        console.log('Autoplay prevented:', err);
+      });
+    });
+
+    videoControl.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+      } else {
+        video.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+      }
+    });
+
+    // Update icon when video plays/pauses
+    video.addEventListener('play', () => {
+      playIcon.classList.remove('fa-play');
+      playIcon.classList.add('fa-pause');
+    });
+
+    video.addEventListener('pause', () => {
+      playIcon.classList.remove('fa-pause');
+      playIcon.classList.add('fa-play');
+    });
+
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close menu when clicking outside
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.mobile-menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Optimized Typewriter Effect
+    const words = ["Professional Event Host", "Master of Ceremonies", "Luxury Wedding Emcee", "Corporate Presenter"];
+    let i = 0, j = 0, currentWord = "", isDeleting = false;
+
+    function type() {
+      currentWord = words[i];
+      const target = document.getElementById("typewriter");
+      
+      if (isDeleting) {
+        target.textContent = currentWord.substring(0, j - 1);
+        j--;
+        if (j == 0) { 
+          isDeleting = false; 
+          i = (i + 1) % words.length; 
+        }
+      } else {
+        target.textContent = currentWord.substring(0, j + 1);
+        j++;
+        if (j == currentWord.length) {
+          setTimeout(() => { isDeleting = true; }, 1500);
+        }
+      }
+      setTimeout(type, isDeleting ? 50 : 100);
+    }
+
+    function initStatsCounter() {
+  const statNumbers = document.querySelectorAll('.stat-number');
+
+  statNumbers.forEach(stat => {
+    const target = parseInt(stat.getAttribute('data-target'));
+    
+    // Create a proxy object to animate the value
+    const countObj = { value: 0 };
+
+    gsap.to(countObj, {
+      value: target,
+      duration: 2.5,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".hero-stats",
+        start: "top 90%", // Starts when stats enter view
+      },
+      onUpdate: function() {
+        // Round the value and set text
+        stat.textContent = Math.floor(countObj.value);
+      }
+    });
+  });
+}
+
+// Call this inside your existing window 'load' event
+window.addEventListener('load', () => {
+  // ... other init functions
+  initStatsCounter();
+});
+
+     // 2. 60FPS Horizontal Scroll
+    function initHorizontal() {
+      const container = document.getElementById('horizontal-container');
+      
+      // Calculate how much to scroll: Total width of container minus viewport width
+      let scrollAmount = container.scrollWidth - window.innerWidth;
+
+      gsap.to(container, {
+        x: () => -scrollAmount - 100, // Move left
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".horizontal-wrapper",
+          pin: true, // Lock the section in place
+          start: "top 15%",
+          end: () => "+=" + scrollAmount,
+          scrub: 1, // Smoothly link scroll position to animation
+          invalidateOnRefresh: true, // Recalculate on resize
+          anticipatePin: 1
+        }
+      });
+    }
+
+    // 3. Reveal Animations
+    function initReveals() {
+      gsap.utils.toArray('.reveal-item').forEach(item => {
+        gsap.to(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out"
+        });
+      });
+    }
+
+    window.addEventListener('load', () => {
+      type();
+      initHorizontal();
+      initReveals();
+      
+      // Force scroll refresh to ensure measurements are correct
+      ScrollTrigger.refresh();
+    });
+
+    // Handle Resize (Important for Horizontal Scroll measurements)
+    window.addEventListener('resize', () => {
+      ScrollTrigger.refresh();
+    });
+
+    // Highly Optimized Scroll Animations for 60fps
+    function initScrollAnimations() {
+      const items = document.querySelectorAll('.reveal-item');
+      
+      ScrollTrigger.batch(items, {
+        onEnter: batch => {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.08,
+            overwrite: true
+          });
+        },
+        start: "top 85%",
+        once: true
+      });
+    }
+
+    function initInfiniteSlider() {
+  const track = document.getElementById('testimonialTrack');
+  const cards = Array.from(track.children);
+  
+  // 1. Clone items to create the infinite loop effect
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    track.appendChild(clone);
+  });
+
+  // 2. Calculate the width of one full set
+  const totalWidth = track.scrollWidth / 2;
+
+  // 3. The 60fps Animation
+  const slider = gsap.to(track, {
+    x: -totalWidth,
+    duration: 35, // Adjust speed (higher = slower)
+    ease: "none",
+    repeat: -1,
+    runBackwards: false,
+    modifiers: {
+      // This helper ensures it resets perfectly to 0 when it hits the end
+      x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+    }
+  });
+
+  // 4. Pause on Hover
+  track.addEventListener('mouseenter', () => {
+    gsap.to(slider, { timeScale: 0, duration: 0.5, ease: "power2.out" });
+  });
+
+  track.addEventListener('mouseleave', () => {
+    gsap.to(slider, { timeScale: 1, duration: 0.5, ease: "power2.in" });
+  });
+}
+
+// Initialize on load
+window.addEventListener('load', () => {
+  initInfiniteSlider();
+});
+
+    // GSAP Performance Config
+    gsap.config({
+      force3D: true,
+      nullTargetWarn: false
+    });
+
+    // Initialize
+    window.addEventListener('load', () => {
+      type();
+      initScrollAnimations();
+      
+      // Refresh ScrollTrigger after fonts load
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    });
+
+    // Mobile touch optimization
+    if ('ontouchstart' in window) {
+      document.body.style.cursor = 'pointer';
+    }
+
+    // Passive event listeners for better scroll performance
+    document.addEventListener('touchstart', () => {}, { passive: true });
+    document.addEventListener('touchmove', () => {}, { passive: true });
+  </script>
+
 </body>
-</html>
+</html
