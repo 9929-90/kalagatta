@@ -3,532 +3,863 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Safar with Himanshu | Premier Event Host</title>
+  <title>Anchor Himanshu Paliwal | Premier Event Host</title>
   
-  <!-- Premium Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   
-  <!-- GSAP Core and ScrollTrigger -->
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
-      --primary: #ffffff; 
-      --accent: #f5f5f5;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dim: rgba(201,168,76,0.15);
+      --white: #ffffff;
+      --off-white: #f0ebe0;
       --bg: #000000;
-      --text: #ffffff;
-      --border: rgba(255, 255, 255, 0.2);
-      --font-premium: 'Cormorant Garamond', serif;
-      --font-body: 'Montserrat', sans-serif;
+      --bg-1: #080706;
+      --bg-2: #0d0c0a;
+      --text-muted: #888880;
+      --border: rgba(201,168,76,0.18);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Open Sans', sans-serif;
     }
 
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
+    *, *::before, *::after {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-    
+
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      max-width: 100%;
     }
 
     body {
       font-family: var(--font-body);
       background: var(--bg);
-      color: var(--text);
+      color: var(--white);
       line-height: 1.7;
       overflow-x: hidden;
+      max-width: 100%;
+      position: relative;
     }
 
-    img {
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
-
-    .reveal-item { 
-      opacity: 0; 
-      transform: translateY(30px);
-    }
-
-    /* Premium Navigation */
+    /* ─── NAV ─────────────────────────────────── */
     nav {
       position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.98);
-      backdrop-filter: blur(10px);
-      padding: 20px 5%;
+      top: 0; width: 100%;
+      padding: 18px 5%;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
-    nav h1 { 
-      font-family: var(--font-premium);
-      font-size: clamp(1.1rem, 3vw, 1.8rem); 
-      letter-spacing: 3px; 
-      color: var(--primary);
-      text-transform: uppercase;
-      font-weight: 400;
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
       text-align: center;
+    }
+
+    .nav-brand h1 {
+      font-family: var(--font-body);
+      font-size: clamp(0.9rem, 2.6vw, 1.2rem);
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .nav-subtext {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.68rem, 1.6vw, 0.82rem);
+      letter-spacing: 3px;
+      color: var(--gold);
+      font-weight: 300;
+      text-transform: lowercase;
     }
 
     .nav-cta {
       position: absolute;
       right: 5%;
-      color: var(--text);
+      color: var(--gold);
       text-decoration: none;
-      font-size: clamp(0.7rem, 2vw, 0.9rem);
-      letter-spacing: 2px;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      border-bottom: 1px solid var(--primary);
-      padding-bottom: 5px;
-      transition: opacity 0.3s ease;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      transition: all 0.3s ease;
     }
 
     .nav-cta:hover {
-      opacity: 0.7;
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
     }
 
-    /* Hamburger Menu */
+    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
-      z-index: 1001;
-      width: 28px;
-      height: 22px;
       position: absolute;
       right: 5%;
+      width: 26px; height: 20px;
     }
 
     .hamburger span {
-      width: 100%;
-      height: 2px;
-      background: var(--primary);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: absolute;
-      left: 0;
+      width: 100%; height: 1.5px;
+      background: var(--gold);
+      position: absolute; left: 0;
+      transition: all 0.3s ease;
     }
 
     .hamburger span:nth-child(1) { top: 0; }
     .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
     .hamburger span:nth-child(3) { bottom: 0; }
 
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translateY(-50%);
-      top: 50%;
-    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 50%; }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg); bottom: auto; top: 50%; }
 
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translateY(50%);
-      bottom: 50%;
-    }
-
-    /* Mobile Menu Overlay */
+    /* Mobile Menu */
     .mobile-menu {
       position: fixed;
-      top: 0;
-      right: -100%;
-      width: 100%;
-      max-width: 320px;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.98);
+      top: 0; right: -100%;
+      width: 280px; height: 100vh;
+      background: rgba(5,4,2,0.98);
       backdrop-filter: blur(20px);
       z-index: 999;
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
       border-left: 1px solid var(--border);
     }
 
-    .mobile-menu.active {
-      right: 0;
-    }
+    .mobile-menu.active { right: 0; }
 
     .mobile-menu-content {
-      padding: 100px 40px 40px;
+      padding: 100px 35px 40px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 0;
     }
 
     .mobile-menu-item {
       display: flex;
       align-items: center;
-      gap: 20px;
-      color: var(--text);
+      gap: 18px;
+      color: var(--off-white);
       text-decoration: none;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
       text-transform: uppercase;
       padding: 18px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.08);
       transition: all 0.3s ease;
     }
 
-    .mobile-menu-item:hover {
-      opacity: 0.7;
-      padding-left: 10px;
-    }
+    .mobile-menu-item:hover { color: var(--gold); padding-left: 8px; }
+    .mobile-menu-item i { color: var(--gold); width: 22px; text-align: center; }
 
-    .mobile-menu-item i {
-      font-size: 1.3rem;
-      width: 28px;
-      text-align: center;
-    }
+    /* ─── REVEAL ──────────────────────────────── */
+    .reveal-item { opacity: 0; transform: translateY(28px); }
 
-    section { 
-      padding: clamp(60px, 12vh, 120px) 5%;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Hero Section */
+    /* ─── HERO ────────────────────────────────── */
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       justify-content: center;
-      text-align: center;
-      padding: 100px 5% 60px;
+      padding: 0;
       gap: 0;
-    }
-
-    .hero-video-container {
       position: relative;
-      width: clamp(260px, 70vw, 360px);
-      height: clamp(347px, 93vw, 480px);
-      margin-bottom: 35px;
-      border: 1px solid rgba(255,255,255,0.1);
       overflow: hidden;
     }
 
-    .hero-profile {
+    /* Subtle grain overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: black;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Gold accent line on left */
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 30px; top: 20%; bottom: 20%;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+
+    /* Image fills left half, flush to edges */
+    .hero-img-wrap {
+      position: relative;
+      flex: 0 0 48%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero-img {
       width: 100%;
       height: 100%;
+      min-height: 100vh;
       object-fit: cover;
+      object-position: center top;
       display: block;
+      filter: grayscale(8%);
     }
 
-    .video-control {
+    /* Fade right edge of image into background */
+    .hero-img-wrap::after {
+      content: '';
       position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
+      top: 0; right: 0;
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, var(--bg));
+      pointer-events: none;
     }
 
-    .video-control:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(1.1);
-    }
+    /* Mobile hero overrides */
+    @media (max-width: 899px) {
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        min-height: unset;
+        padding-top: 75px;
+        padding-bottom: 50px;
+        gap: 24px;
+      }
 
-    .video-control i {
-      color: var(--primary);
-      font-size: 1.2rem;
+      .hero-img-wrap {
+        flex: none;
+        width: 75vw;
+        max-width: 320px;
+      }
+
+      .hero-img {
+        min-height: unset;
+        height: clamp(280px, 85vw, 420px);
+        width: 100%;
+      }
+
+      .hero-img-wrap::after { display: none; }
+      .hero::after { display: none; }
     }
 
     .hero-content {
-      width: 100%;
-      max-width: 700px;
-      text-align: center;
+      flex: 1;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 30px 60px 50px;
+      max-width: none;
+    }
+
+    @media (max-width: 899px) {
+      .hero-content {
+        padding: 0 30px 20px;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    .hero-eyebrow {
+      font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-weight: 600;
     }
 
     .hero h2 {
-      font-family: var(--font-premium);
-      font-size: clamp(2.2rem, 9vw, 7rem);
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 7vw, 9rem);
       font-weight: 300;
-      margin-bottom: 20px;
-      line-height: 1.1;
-      text-transform: uppercase;
-      text-align: center;
+      line-height: 0.95;
+      margin-bottom: 28px;
+      color: var(--off-white);
+    }
+
+    .hero h2 em {
+      font-style: italic;
+      color: var(--gold-light);
     }
 
     #typewriter {
-      color: var(--primary);
-      font-size: clamp(0.85rem, 3vw, 1.4rem);
-      letter-spacing: clamp(2px, 1vw, 8px);
+      font-size: clamp(0.78rem, 1.4vw, 1rem);
+      letter-spacing: 4px;
       text-transform: uppercase;
+      color: var(--text-muted);
       font-weight: 300;
-      min-height: 1.5em;
-      text-align: center;
+      min-height: 1.4em;
+      margin-bottom: 50px;
     }
 
-    /* Section Titles */
-    .section-title {
-      font-family: var(--font-premium);
-      font-size: clamp(2.2rem, 7vw, 4.5rem);
-      text-align: center;
-      margin-bottom: clamp(35px, 7vh, 60px);
-      color: var(--primary);
-      font-weight: 400;
-      letter-spacing: 2px;
-      width: 100%;
+    .cursor {
+      display: inline-block;
+      width: 1px; height: 1em;
+      background: var(--gold);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
     }
 
-    /* Horizontal Scroll Section */
-    .horizontal-wrapper {
-      width: 100%;
-      overflow: hidden;
-      background:black;
-      padding: 100px 0;
-    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    .section-title {
-      font-family: var(--font-premium);
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      text-align: center;
-      margin-bottom: 60px;
-      font-weight: 400;
-    }
-
-    .horizontal-container {
+    /* Stats */
+    .hero-stats {
       display: flex;
-      padding-left: 5%;
+      align-items: center;
+      gap: 0;
+    }
+
+    .stat-item {
+      padding: 0 clamp(18px, 3vw, 32px);
+      text-align: center;
+    }
+
+    .stat-item:first-child { padding-left: 0; }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .stat-suffix { font-size: 0.9em; }
+
+    .stat-item p {
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 7px;
+      font-weight: 400;
+    }
+
+    .stat-div {
+      width: 1px; height: 45px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ─── SERVICES SLIDER ─────────────────────── */
+    #services {
+      padding: clamp(70px, 12vh, 120px) 0;
+      background: var(--bg-1);
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+
+    .services-header {
+      padding: 0 5%;
+      margin-bottom: 55px;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 300;
+      color: var(--off-white);
+      letter-spacing: 1px;
+    }
+
+    /* Auto slider */
+    .slider-viewport {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .slider-track {
+      display: flex;
+      width: max-content;
+      animation: slide 28s linear infinite;
       will-change: transform;
+    }
+
+    .slider-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
     .service-card {
-      flex: 0 0 350px;
-      height: 450px;
-      margin-right: 30px;
-      background: black;
+      flex: 0 0 260px;
+      height: 320px;
+      margin-right: 20px;
+      background: var(--bg-2);
+      border: 1px solid rgba(201,168,76,0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: border-color 0.4s ease;
+      cursor: default;
+      transition: border-color 0.4s ease, background 0.4s ease;
       position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
     }
 
     .service-card:hover {
-      border-color: var(--primary);
+      border-color: rgba(201,168,76,0.25);
+      background: #0f0e0b;
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-card .card-num {
+      font-size: 0.55rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      opacity: 0.4;
+      position: absolute;
+      top: 20px; right: 22px;
+      font-weight: 600;
     }
 
     .service-card i {
-      font-size: 3.5rem;
-      margin-bottom: 25px;
-      color: var(--primary);
-      opacity: 0.8;
+      font-size: 3.2rem;
+      color: var(--gold);
+      opacity: 0.75;
+      margin-bottom: 22px;
     }
 
     .service-card span {
-      font-family: var(--font-premium);
-      font-size: 1.8rem;
+      font-family: var(--font-display);
+      font-size: 1.75rem;
       letter-spacing: 2px;
       text-transform: uppercase;
+      color: var(--off-white);
+      font-weight: 400;
     }
 
-    .service-card .count {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 0.8rem;
-      opacity: 0.3;
-      font-family: var(--font-body);
+    /* Slider responsive */
+    @media (max-width: 600px) {
+      .service-card { flex: 0 0 200px; height: 260px; }
+      .service-card i { font-size: 2.2rem; }
+      .service-card span { font-size: 1.15rem; }
     }
 
-    /* Adaptive Grid */
-    .grid-3x3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: clamp(15px, 3vw, 25px);
-      max-width: 1200px;
-      width: 100%;
-    }
-
-    /* Cards */
-    .card {
-      background: #050505;
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: clamp(35px, 5vw, 55px) 20px;
-      text-align: center;
+    /* ─── ABOUT ───────────────────────────────── */
+    #about {
+      padding: clamp(70px, 12vh, 120px) 7%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 170px;
-      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-      will-change: transform;
+      background: var(--bg);
     }
 
-    .card:hover {
-      border-color: var(--primary);
-      transform: translateY(-4px);
-      background: #0a0a0a;
-    }
-
-    .card i { 
-      color: var(--primary); 
-      margin-bottom: clamp(12px, 3vw, 20px); 
-      font-size: clamp(2.2rem, 5vw, 3.2rem); 
-    }
-
-    .card span { 
-      font-family: var(--font-premium); 
-      font-size: clamp(1rem, 2.5vw, 1.3rem); 
-      letter-spacing: 2px; 
-      text-transform: uppercase;
-    }
-
-    /* About Content */
     .about-layout {
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(35px, 7vw, 70px);
+      gap: clamp(40px, 7vw, 80px);
       align-items: center;
       max-width: 1100px;
       width: 100%;
     }
 
-    .about-text {
-      text-align: center;
+    @media (min-width: 900px) {
+      .about-layout { grid-template-columns: 1fr 1fr; }
+    }
+
+    .about-text h3 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      font-weight: 300;
+      color: var(--off-white);
+      margin-bottom: 28px;
     }
 
     .about-text p {
-      font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-      font-weight: 200;
-      margin-bottom: 22px;
-      color: #ccc;
-      line-height: 1.8;
-      text-align: center;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.9;
     }
 
-    .about-img {
-      display: flex;
-      justify-content: center;
-      width: 100%;
+    .about-img-wrap {
+      position: relative;
     }
 
-    .about-img img {
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: 20px; left: 20px;
+      right: -20px; bottom: -20px;
+      border: 1px solid var(--border);
+      z-index: 0;
+    }
+
+    .about-img-wrap img {
       width: 100%;
-      max-width: 600px;
+      position: relative;
+      z-index: 1;
       display: block;
     }
 
-    /* Image Gallery */
+    /* ─── REACH / JOURNEY MAP ─────────────────── */
+    #reach {
+      padding: clamp(70px, 12vh, 120px) 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg-1);
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .journey-map {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+    }
+
+    /* Connecting SVG lines */
+    .journey-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 0;
+    }
+
+    .journey-path {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+      stroke-dasharray: 6 5;
+      opacity: 0.3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Grid layout for stops */
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      position: relative;
+      z-index: 1;
+    }
+
+    .journey-stop {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: clamp(22px, 4vw, 40px) 8px clamp(22px, 4vw, 40px);
+      text-align: center;
+      position: relative;
+      gap: 10px;
+    }
+
+    /* Animated pin */
+    .pin-outer {
+      width: clamp(44px, 8vw, 58px);
+      height: clamp(44px, 8vw, 58px);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: rgba(201,168,76,0.07);
+      border: 1px solid rgba(201,168,76,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+      flex-shrink: 0;
+    }
+
+    .pin-outer i {
+      transform: rotate(45deg);
+      color: var(--gold);
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      transition: color 0.35s ease;
+    }
+
+    .journey-stop:hover .pin-outer {
+      background: rgba(201,168,76,0.18);
+      border-color: var(--gold);
+      transform: rotate(-45deg) scale(1.12);
+    }
+
+    .stop-label {
+      font-family: var(--font-display);
+      font-size: clamp(0.88rem, 2.2vw, 1.2rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--off-white);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .stop-num {
+      font-size: 0.52rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      opacity: 0.3;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 520px) {
+      .journey-grid { grid-template-columns: repeat(2, 1fr); }
+      .stop-label { font-size: 0.82rem; letter-spacing: 1.5px; }
+      .pin-outer { width: 40px; height: 40px; }
+    }
+
+    /* ─── GALLERY ─────────────────────────────── */
+    #gallery {
+      padding: clamp(70px, 12vh, 120px) 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg);
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: clamp(10px, 2vw, 18px);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
       max-width: 1200px;
       width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     .gallery-grid img {
       width: 100%;
       aspect-ratio: 1/1;
       object-fit: cover;
-      filter: grayscale(0.3);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: filter 0.3s ease, transform 0.3s ease;
-      will-change: transform;
+      display: block;
+      filter: grayscale(30%) brightness(0.85);
+      transition: filter 0.4s ease, transform 0.4s ease;
     }
 
     .gallery-grid img:hover {
-      filter: grayscale(0);
+      filter: grayscale(0%) brightness(1);
       transform: scale(1.02);
+      z-index: 1;
+      position: relative;
     }
 
-   #testimonials {
-  padding: 100px 0;
-  overflow: hidden;
-  background: #000;
-}
-
-.testimonials-window {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  /* Adds a subtle fade effect on the edges */
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-}
-
-.testimonials-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  padding: 20px 0;
-}
-
-.testimonial-card {
-  width: clamp(300px, 40vw, 500px);
-  background: #080808;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-left: 2px solid var(--primary);
-  padding: 40px;
-  margin: 0 15px;
-  flex-shrink: 0;
-}
-
-.testimonial-card p {
-  font-family: var(--font-premium);
-  font-size: 1.2rem;
-  font-style: italic;
-  margin-bottom: 25px;
-  color: #ddd;
-  line-height: 1.6;
-}
-
-.testimonial-card h4 {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--primary);
-}
-
-.testimonial-card h4 span {
-  opacity: 0.5;
-  font-weight: 300;
-}
-
-    /* Contact Footer */
-    footer {
-      text-align: center;
-      padding: clamp(60px, 12vh, 100px) 5%;
-      border-top: 1px solid var(--border);
+    /* ─── TESTIMONIALS ────────────────────────── */
+    #testimonials {
+      padding: clamp(70px, 12vh, 120px) 0;
+      background: var(--bg-1);
+      overflow: hidden;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    footer h2 { 
-      font-family: var(--font-premium); 
-      font-size: clamp(2.2rem, 7vw, 4.5rem); 
-      color: var(--primary); 
-      margin-bottom: 30px;
-      text-align: center;
+    .testimonials-window {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
     }
 
-    footer p {
-      font-size: clamp(0.75rem, 2vw, 0.95rem);
+    .testimonials-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .testimonial-card {
+      width: clamp(280px, 38vw, 460px);
+      background: var(--bg-2);
+      border: 1px solid rgba(201,168,76,0.07);
+      border-left: 2px solid var(--gold);
+      padding: clamp(28px, 4vw, 42px);
+      margin: 0 14px;
+      flex-shrink: 0;
+    }
+
+    .testimonial-card p {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      font-style: italic;
+      color: #ccc;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .testimonial-card h4 {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .testimonial-card h4 span { opacity: 0.5; font-weight: 300; }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    footer {
       text-align: center;
+      padding: clamp(80px, 14vh, 130px) 5% clamp(50px, 8vh, 80px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient background glow */
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* CTA headline */
+    .footer-cta {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 300;
+      color: var(--off-white);
+      line-height: 1.05;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .footer-cta em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .footer-tagline {
+      font-size: 0.68rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-bottom: 55px;
+    }
+
+    /* Highlighted email */
+    .footer-email-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 30px;
+      margin-bottom: 55px;
+      transition: border-color 0.3s ease, background 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-email-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.06), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .footer-email-wrap:hover::before {
+      transform: translateX(100%);
+    }
+
+    .footer-email-wrap:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .footer-email-wrap i {
+      color: var(--gold);
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .footer-email-wrap span {
+      font-family: var(--font-body);
+      font-size: clamp(0.72rem, 2vw, 0.9rem);
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      font-weight: 400;
+      text-transform: lowercase;
+    }
+
+    /* Thin gold rule */
+    .footer-rule {
+      width: 100%;
+      max-width: 500px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin-bottom: 40px;
     }
 
     .footer-links {
@@ -536,209 +867,86 @@
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: clamp(25px, 4vw, 45px);
-      font-weight: 200;
-      letter-spacing: 2px;
-      margin-bottom: 45px;
+      gap: clamp(28px, 5vw, 50px);
+      margin-bottom: 55px;
     }
 
     .footer-links a {
-      color: white;
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: clamp(1.8rem, 4vw, 2.2rem);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-size: clamp(1.3rem, 3vw, 1.6rem);
+      transition: color 0.3s ease, transform 0.3s ease;
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
     }
 
-    .footer-links a:hover {
+    .footer-links a::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .footer-links a:hover { color: var(--gold); transform: translateY(-3px); }
+    .footer-links a:hover::after { opacity: 0.7; }
+
+    footer .copy {
+      font-size: 0.58rem;
+      letter-spacing: 3px;
+      opacity: 0.2;
+      text-transform: uppercase;
+    }
+
+    /* Gold divider line */
+    .gold-divider {
+      width: 40px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto 16px;
       opacity: 0.6;
-      transform: scale(1.1);
-    }
-    /* Hero Stats Styling */
-.hero-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(20px, 5vw, 40px);
-  margin-top: 40px;
-  width: 100%;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-family: var(--font-premium);
-  font-size: clamp(2.0rem, 4vw, 2.5rem);
-  font-weight: 400;
-  color: var(--primary);
-  display: inline-block;
-}
-
-.stat-suffix {
-  font-family: var(--font-premium);
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  color: var(--primary);
-}
-
-.stat-item p {
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #888;
-  margin-top: 5px;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Mobile Adjustments for Stats */
-@media (max-width: 600px) {
-  .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 25px;
-    margin-top: 50px;
-  }
-  .stat-divider {
-    display: none;
-  }
-}
-
-    /* Desktop - Side by Side Hero */
-    @media (min-width: 900px) {
-      .hero {
-        flex-direction: row;
-        gap: clamp(50px, 7vw, 90px);
-        padding: 100px 7% 80px;
-        align-items: center;
-      }
-
-      .hero-video-container {
-        margin-bottom: 0;
-        flex-shrink: 0;
-        width: clamp(300px, 38vw, 400px);
-        height: clamp(400px, 51vw, 533px);
-      }
-
-      .hero-content {
-        flex: 1;
-        text-align: left;
-      }
-
-      .hero h2 {
-        text-align: left;
-      }
-
-      #typewriter {
-        text-align: left;
-      }
-
-      .about-layout {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .about-text {
-        text-align: left;
-      }
-
-      .about-text p {
-        text-align: left;
-      }
-
-      .grid-3x3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
     }
 
-    /* Tablet Range */
-    @media (min-width: 600px) and (max-width: 899px) {
-      .grid-3x3 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* Section header compound */
+    .section-head {
+      text-align: center;
+      margin-bottom: clamp(40px, 8vh, 65px);
+      width: 100%;
     }
 
-    /* Mobile Optimization */
-    @media (max-width: 768px) {
-      nav {
-        padding: 18px 5%;
-      }
-
-      nav h1 {
-        letter-spacing: 2px;
-        font-size: 1rem;
-      }
-
-      .nav-cta {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      section {
-        padding: 50px 5%;
-      }
-
-      .hero {
-        padding: 85px 5% 55px;
-      }
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      #typewriter { text-align: center; }
+      .hero-stats { justify-content: center; }
+      .stat-item:first-child { padding-left: clamp(18px, 3vw, 32px); }
     }
 
-    /* Extra Small Mobile */
-    @media (max-width: 480px) {
-      .grid-3x3 {
-        grid-template-columns: 1fr;
-        gap: 12px;
+    @media (max-width: 600px) {
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
       }
+      .stat-div { display: none; }
+      .stat-item { padding: 0 10px; }
 
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-
-      .card {
-        padding: 30px 18px;
-        min-height: 150px;
-      }
-
-      .card i {
-        font-size: 2rem;
-        margin-bottom: 10px;
-      }
-
-      .card span {
-        font-size: 0.95rem;
-        letter-spacing: 1.5px;
-      }
-
-      .testimonial {
-        padding: 20px 18px;
-      }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
     }
 
-    /* Performance optimizations */
+    @media (min-width: 601px) {
+      .hamburger { display: none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+      .slider-track { animation: none; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
@@ -746,294 +954,236 @@
 
   <!-- Navigation -->
   <nav>
-    <h1>Safar with Himanshu</h1>
+    <div class="nav-brand">
+      <h1>AnchorHimanshuPaliwal</h1>
+      <span class="nav-subtext">safar with himanshu</span>
+    </div>
     <a href="tel:+917877075819" class="nav-cta">Inquire Now</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
     </button>
   </nav>
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-content">
-      <a href="tel:+917877075819" class="mobile-menu-item">
-        <i class="fas fa-phone"></i>
-        <span>Call Now</span>
-      </a>
-      <a href="https://wa.me/917877075819" class="mobile-menu-item" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i>
-        <span>WhatsApp</span>
-      </a>
-      <a href="mailto:himanshupaliwal1503@gmail.com" class="mobile-menu-item">
-        <i class="fas fa-envelope"></i>
-        <span>Email</span>
-      </a>
-      <a href="https://www.instagram.com/safar_with_himanshu" class="mobile-menu-item" target="_blank" rel="noopener">
-        <i class="fab fa-instagram"></i>
-        <span>Instagram</span>
-      </a>
+      <a href="tel:+917877075819" class="mobile-menu-item"><i class="fas fa-phone"></i><span>Call Now</span></a>
+      <a href="https://wa.me/917877075819" class="mobile-menu-item" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      <a href="mailto:himanshupaliwal1503@gmail.com" class="mobile-menu-item"><i class="fas fa-envelope"></i><span>Email</span></a>
+      <a href="https://www.instagram.com/safar_with_himanshu" class="mobile-menu-item" target="_blank" rel="noopener"><i class="fab fa-instagram"></i><span>Instagram</span></a>
     </div>
   </div>
 
- <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-video-container reveal-item">
-    <video class="hero-profile" id="heroVideo" loop playsinline>
-      <source src="Videotwo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <button class="video-control" id="videoControl" aria-label="Play/Pause Video">
-      <i class="fas fa-play" id="playIcon"></i>
-    </button>
-  </div>
+  <!-- ─── HERO ─────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-img-wrap reveal-item">
+      <img src="heroo (1).png" alt="Anchor Himanshu Paliwal" class="hero-img">
+    </div>
 
-  <div class="hero-content">
-    <h2 class="reveal-item">Himanshu Paliwal</h2>
-    <div id="typewriter" class="reveal-item"></div>
-    
-    <!-- New Stats Section -->
-    <div class="hero-stats reveal-item">
-      <div class="stat-item">
-        <span class="stat-number" data-target="500">0</span><span class="stat-suffix">+</span>
-        <p>Events Hosted</p>
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-item">Premier Event Host · Udaipur, India</p>
+      <h2 class="reveal-item">Himanshu<br><em>Paliwal</em></h2>
+      <div id="typewriter" class="reveal-item"><span class="cursor"></span></div>
+
+      <div class="hero-stats reveal-item">
+        <div class="stat-item">
+          <div><span class="stat-number" data-target="500">0</span><span class="stat-suffix">+</span></div>
+          <p>Events Hosted</p>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat-item">
+          <div><span class="stat-number" data-target="6">0</span><span class="stat-suffix">+</span></div>
+          <p>Yrs Experience</p>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat-item">
+          <div><span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span></div>
+          <p>Satisfaction</p>
+        </div>
       </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-number" data-target="6">0</span><span class="stat-suffix">+</span>
-        <p>Years Experience</p>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
-        <p>Client Satisfaction</p>
+    </div>
+  </section>
+
+  <!-- ─── SERVICES SLIDER ──────────────────────── -->
+  <div id="services">
+    <div class="services-header reveal-item">
+      <p class="section-label">What I Do</p>
+      <div class="gold-divider"></div>
+      <h3 class="section-title">Curated Services</h3>
+    </div>
+
+    <div class="slider-viewport">
+      <div class="slider-track" id="sliderTrack">
+        <!-- Set 1 -->
+        <div class="service-card"><span class="card-num">01</span><i class="fas fa-heart"></i><span>Weddings</span></div>
+        <div class="service-card"><span class="card-num">02</span><i class="fas fa-briefcase"></i><span>Corporate</span></div>
+        <div class="service-card"><span class="card-num">03</span><i class="fas fa-om"></i><span>Festivals</span></div>
+        <div class="service-card"><span class="card-num">04</span><i class="fas fa-child"></i><span>Baby Shower</span></div>
+        <div class="service-card"><span class="card-num">05</span><i class="fas fa-graduation-cap"></i><span>College</span></div>
+        <div class="service-card"><span class="card-num">06</span><i class="fas fa-users"></i><span>Socials</span></div>
+        <div class="service-card"><span class="card-num">07</span><i class="fas fa-water"></i><span>Pool Party</span></div>
+        <div class="service-card"><span class="card-num">08</span><i class="fas fa-microphone-lines"></i><span>Concerts</span></div>
+        <div class="service-card"><span class="card-num">09</span><i class="fas fa-crown"></i><span>Private</span></div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="service-card"><span class="card-num">01</span><i class="fas fa-heart"></i><span>Weddings</span></div>
+        <div class="service-card"><span class="card-num">02</span><i class="fas fa-briefcase"></i><span>Corporate</span></div>
+        <div class="service-card"><span class="card-num">03</span><i class="fas fa-om"></i><span>Festivals</span></div>
+        <div class="service-card"><span class="card-num">04</span><i class="fas fa-child"></i><span>Baby Shower</span></div>
+        <div class="service-card"><span class="card-num">05</span><i class="fas fa-graduation-cap"></i><span>College</span></div>
+        <div class="service-card"><span class="card-num">06</span><i class="fas fa-users"></i><span>Socials</span></div>
+        <div class="service-card"><span class="card-num">07</span><i class="fas fa-water"></i><span>Pool Party</span></div>
+        <div class="service-card"><span class="card-num">08</span><i class="fas fa-microphone-lines"></i><span>Concerts</span></div>
+        <div class="service-card"><span class="card-num">09</span><i class="fas fa-crown"></i><span>Private</span></div>
       </div>
     </div>
   </div>
-</section>
 
-  <!-- Horizontal Services Section -->
-  <div class="horizontal-wrapper">
-    <h3 class="section-title reveal-item">Curated Services</h3>
-    <div class="horizontal-container" id="horizontal-container">
-      
-      <div class="service-card">
-        <div class="count">01</div>
-        <i class="fas fa-heart"></i>
-        <span>Weddings</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">02</div>
-        <i class="fas fa-briefcase"></i>
-        <span>Corporate</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">03</div>
-        <i class="fas fa-om"></i>
-        <span>Festivals</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">04</div>
-        <i class="fas fa-child"></i>
-        <span>Baby Shower</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">05</div>
-        <i class="fas fa-graduation-cap"></i>
-        <span>College</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">06</div>
-        <i class="fas fa-users-rays"></i>
-        <span>Socials</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">07</div>
-        <i class="fas fa-swimming-pool"></i>
-        <span>Pool Party</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">08</div>
-        <i class="fas fa-microphone-lines"></i>
-        <span>Concerts</span>
-      </div>
-
-      <div class="service-card">
-        <div class="count">09</div>
-        <i class="fas fa-crown"></i>
-        <span>Private</span>
-      </div>
-
-    </div>
-  </div>
-
-
-  <!-- About Section -->
+  <!-- ─── ABOUT ─────────────────────────────────── -->
   <section id="about">
     <div class="about-layout">
       <div class="about-text">
-        <h3 class="section-title reveal-item" style="margin-bottom: 30px;">The Journey</h3>
-        <p class="reveal-item">Anchor Himanshu Paliwal is a distinguished and versatile host based in the City of Lakes — Udaipur. Since 2019, he has been captivating audiences with his refined energy.</p>
-        <p class="reveal-item">With a portfolio of over 350+ events, "Safar with Himanshu" is more than just anchoring; it is a commitment to creating extraordinary memories through sophisticated storytelling.</p>
+        <div class="section-label reveal-item">About</div>
+        <h3 class="reveal-item">The Journey</h3>
+        <p class="reveal-item">Anchor Himanshu Paliwal is a distinguished and versatile host based in the City of Lakes — Udaipur. Since 2019, he has been captivating audiences with his refined energy and commanding stage presence.</p>
+        <p class="reveal-item">With a portfolio of over 500+ events, "Safar with Himanshu" is more than just anchoring; it is a commitment to creating extraordinary memories through sophisticated storytelling and authentic engagement.</p>
       </div>
-      <div class="about-img reveal-item">
-        <img src="abt (1).png" alt="Professional Host">
+      <div class="about-img-wrap reveal-item">
+        <img src="abt (1).png" alt="Anchor Himanshu Paliwal">
       </div>
     </div>
   </section>
 
-  <!-- Reach Section -->
-  <section id="reach" style="background: #050505;">
-    <h3 class="section-title reveal-item">My Presence</h3>
-    <div class="grid-3x3">
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Udaipur</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Indore</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Ahmedabad</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Jaipur</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Ujjain</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Bhilwara</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Kumbhalgarh</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Chittaurgarh</span></div>
-      <div class="card reveal-item"><i class="fas fa-location-dot"></i><span>Banswara</span></div>
+  <!-- ─── REACH ──────────────────────────────────── -->
+  <section id="reach">
+    <div class="section-head reveal-item">
+      <p class="section-label">Coverage</p>
+      <div class="gold-divider"></div>
+      <h3 class="section-title" style="font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4rem); font-weight:300; color: var(--off-white);">My Presence</h3>
+    </div>
+
+    <div class="journey-map reveal-item">
+      <!-- SVG connecting dotted lines drawn by JS -->
+      <svg class="journey-svg" id="journeySvg" aria-hidden="true"></svg>
+
+      <div class="journey-grid" id="journeyGrid">
+        <div class="journey-stop" data-stop="1">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Udaipur</span>
+          <span class="stop-num">01</span>
+        </div>
+        <div class="journey-stop" data-stop="2">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Jaipur</span>
+          <span class="stop-num">02</span>
+        </div>
+        <div class="journey-stop" data-stop="3">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Ahmedabad</span>
+          <span class="stop-num">03</span>
+        </div>
+        <div class="journey-stop" data-stop="4">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Kumbhalgarh</span>
+          <span class="stop-num">04</span>
+        </div>
+        <div class="journey-stop" data-stop="5">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Indore</span>
+          <span class="stop-num">05</span>
+        </div>
+        <div class="journey-stop" data-stop="6">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Ujjain</span>
+          <span class="stop-num">06</span>
+        </div>
+        <div class="journey-stop" data-stop="7">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Chittaurgarh</span>
+          <span class="stop-num">07</span>
+        </div>
+        <div class="journey-stop" data-stop="8">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Bhilwara</span>
+          <span class="stop-num">08</span>
+        </div>
+        <div class="journey-stop" data-stop="9">
+          <div class="pin-outer"><i class="fas fa-location-dot"></i></div>
+          <span class="stop-label">Banswara</span>
+          <span class="stop-num">09</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Gallery -->
+  <!-- ─── GALLERY ─────────────────────────────────── -->
   <section id="gallery">
-    <h3 class="section-title reveal-item">Visual Safar</h3>
+    <div class="section-head reveal-item">
+      <p class="section-label">Portfolio</p>
+      <div class="gold-divider"></div>
+      <h3 class="section-title" style="font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4rem); font-weight:300; color: var(--off-white);">Visual Safar</h3>
+    </div>
     <div class="gallery-grid">
-        <img src="newpic.jpeg" class="reveal-item" alt="Gallery Image">
-      <img src="Newpic2.jpeg" class="reveal-item" alt="Gallery Image">
-      <img src="newpic3.jpeg" class="reveal-item" alt="Gallery Image">
-      <img src="pro3.jpg" class="reveal-item" alt="Gallery Image">
-      <img src="galleryone.jpg" class="reveal-item" alt="Gallery Image">
-      <img src="pro2.jpg" class="reveal-item" alt="Gallery Image">
-      <img src="slide2.jpg" class="reveal-item" alt="Gallery Image">
-      <img src="slide3.jpg" class="reveal-item" alt="Gallery Image">
-      <img src="pro.jpg" class="reveal-item" alt="Gallery Image">
-      <img src="gallerytwo.jpg" class="reveal-item" alt="Gallery Image">
+      <img src="newpic.jpeg" class="reveal-item" alt="Gallery">
+      <!-- Newpic2.jpeg removed as requested -->
+      <img src="newpic3.jpeg" class="reveal-item" alt="Gallery">
+      <img src="pro3.jpg" class="reveal-item" alt="Gallery">
+      <img src="galleryone.jpg" class="reveal-item" alt="Gallery">
+      <img src="pro2.jpg" class="reveal-item" alt="Gallery">
+      <img src="slide2.jpg" class="reveal-item" alt="Gallery">
+      <img src="slide3.jpg" class="reveal-item" alt="Gallery">
+      <img src="pro.jpg" class="reveal-item" alt="Gallery">
+      <img src="gallerytwo.jpg" class="reveal-item" alt="Gallery">
     </div>
   </section>
 
- <!-- Testimonials -->
-<section id="testimonials" class="testimonials-section">
-  <h3 class="section-title reveal-item">Client Voices</h3>
-  
-  <div class="testimonials-window">
-    <div class="testimonials-track" id="testimonialTrack">
-      <!-- Item 1 -->
-      <div class="testimonial-card">
-        <p>"The entire wedding was brought to life with his hosting. I'll recommend him as the best host."</p>
-        <h4>RINKESH MUNGANIYA <span>| Banswara</span></h4>
-      </div>
-      <!-- Item 2 -->
-      <div class="testimonial-card">
-        <p>"We met at an event in Kumbhalgarh. I am a professional photographer and his nature and anchoring was so good!"</p>
-        <h4>NAVNEET SINGH</h4>
-      </div>
-      <!-- Item 3 -->
-      <div class="testimonial-card">
-        <p>"He is truly the best anchor in Udaipur. His energy, spontaneity, and charm keep the audience engaged."</p>
-        <h4>ANONYMOUS CLIENT</h4>
-      </div>
-      <!-- Item 4 -->
-      <div class="testimonial-card">
-        <p>"Himanshu Paliwal is an exceptional anchor. He creates an experience filled with energy and humor."</p>
-        <h4>CLIENT REVIEW</h4>
-      </div>
-      <!-- Item 5 -->
-      <div class="testimonial-card">
-        <p>"Best anchor in Udaipur! At my parents' anniversary, you literally rocked the stage and mesmerized everyone."</p>
-        <h4>NITIN PUROHIT</h4>
-      </div>
-      <!-- Item 6 -->
-      <div class="testimonial-card">
-        <p>"Outstanding Corporate Event Host. Confident, professional, and knows exactly how to connect with the audience."</p>
-        <h4>CORPORATE CLIENT</h4>
-      </div>
-      <!-- Item 7 -->
-      <div class="testimonial-card">
-        <p>"Himanshu ji ne mere relative ke baby shower ki vibe hi alag bana di thi! Full-on entertainment."</p>
-        <h4>PRIVATE EVENT CLIENT</h4>
-      </div>
-      <!-- Item 8 -->
-      <div class="testimonial-card">
-        <p>"I have no words to describe your performance. You handled the stage with great confidence."</p>
-        <h4>SWATI SHARMA</h4>
+  <!-- ─── TESTIMONIALS ──────────────────────────── -->
+  <section id="testimonials">
+    <div class="section-head reveal-item">
+      <p class="section-label">Reviews</p>
+      <div class="gold-divider"></div>
+      <h3 class="section-title" style="font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4rem); font-weight:300; color: var(--off-white);">Client Voices</h3>
+    </div>
+    <div class="testimonials-window">
+      <div class="testimonials-track" id="testimonialTrack">
+        <div class="testimonial-card"><p>"The entire wedding was brought to life with his hosting. I'll recommend him as the best host."</p><h4>RINKESH MUNGANIYA <span>| Banswara</span></h4></div>
+        <div class="testimonial-card"><p>"We met at an event in Kumbhalgarh. I am a professional photographer and his anchoring was so good!"</p><h4>NAVNEET SINGH</h4></div>
+        <div class="testimonial-card"><p>"He is truly the best anchor in Udaipur. His energy, spontaneity, and charm keep the audience engaged throughout."</p><h4>ANONYMOUS CLIENT</h4></div>
+        <div class="testimonial-card"><p>"Himanshu Paliwal is an exceptional anchor. He creates an experience filled with energy and humor."</p><h4>CLIENT REVIEW</h4></div>
+        <div class="testimonial-card"><p>"Best anchor in Udaipur! At my parents' anniversary, you literally rocked the stage and mesmerized everyone."</p><h4>NITIN PUROHIT</h4></div>
+        <div class="testimonial-card"><p>"Outstanding Corporate Event Host. Confident, professional, and knows exactly how to connect with the audience."</p><h4>CORPORATE CLIENT</h4></div>
+        <div class="testimonial-card"><p>"Himanshu ji ne mere relative ke baby shower ki vibe hi alag bana di thi! Full-on entertainment."</p><h4>PRIVATE EVENT CLIENT</h4></div>
+        <div class="testimonial-card"><p>"I have no words to describe your performance. You handled the stage with great confidence and grace."</p><h4>SWATI SHARMA</h4></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-  <!-- Footer -->
+  <!-- ─── FOOTER ─────────────────────────────────── -->
   <footer>
-    <h2 class="reveal-item">Safar with Himanshu</h2>
-    <p class="reveal-item" style="letter-spacing: 4px; margin-bottom: 30px;">HIMANSHUPALIWAL1503@GMAIL.COM</p>
+    <p class="footer-cta reveal-item">Let's Create<br><em>Something Extraordinary</em></p>
+    <p class="footer-tagline reveal-item">Available across Rajasthan &amp; beyond</p>
+
+    <a href="mailto:himanshupaliwal1503@gmail.com" class="footer-email-wrap reveal-item">
+      <i class="fas fa-envelope"></i>
+      <span>himanshupaliwal1503@gmail.com</span>
+    </a>
+
+    <div class="footer-rule reveal-item"></div>
+
     <div class="footer-links reveal-item">
-      <a href="https://www.instagram.com/safar_with_himanshu" target="_blank" rel="noopener" aria-label="Instagram">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://wa.me/917877075819" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-      <a href="https://www.youtube.com/@Anchor_Himanshu_Paliwal" target="_blank" rel="noopener" aria-label="YouTube">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="mailto:himanshupaliwal1503@gmail.com" aria-label="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
+      <a href="https://www.instagram.com/safar_with_himanshu" target="_blank" rel="noopener" aria-label="Instagram" data-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://wa.me/917877075819" target="_blank" rel="noopener" aria-label="WhatsApp" data-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.youtube.com/@Anchor_Himanshu_Paliwal" target="_blank" rel="noopener" aria-label="YouTube" data-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="tel:+917877075819" aria-label="Call" data-label="Call Now"><i class="fas fa-phone"></i></a>
     </div>
-    <p class="reveal-item" style="margin-top: 45px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px;">© 2026 SAFAR WITH HIMANSHU</p>
+
+    <p class="copy reveal-item">© 2026 Anchor Himanshu Paliwal · All Rights Reserved</p>
   </footer>
 
   <script>
-    // Performance optimization: Reduce unnecessary reflows
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ force3D: true, nullTargetWarn: false });
 
-    // Video Play/Pause Control
-    const video = document.getElementById('heroVideo');
-    const videoControl = document.getElementById('videoControl');
-    const playIcon = document.getElementById('playIcon');
-
-    // Auto-play video when page loads
-    window.addEventListener('load', () => {
-      video.play().catch(err => {
-        console.log('Autoplay prevented:', err);
-      });
-    });
-
-    videoControl.addEventListener('click', () => {
-      if (video.paused) {
-        video.play();
-        playIcon.classList.remove('fa-play');
-        playIcon.classList.add('fa-pause');
-      } else {
-        video.pause();
-        playIcon.classList.remove('fa-pause');
-        playIcon.classList.add('fa-play');
-      }
-    });
-
-    // Update icon when video plays/pauses
-    video.addEventListener('play', () => {
-      playIcon.classList.remove('fa-play');
-      playIcon.classList.add('fa-pause');
-    });
-
-    video.addEventListener('pause', () => {
-      playIcon.classList.remove('fa-pause');
-      playIcon.classList.add('fa-play');
-    });
-
-    // Hamburger Menu Toggle
+    // ─── Hamburger ─────────────────────────────
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
@@ -1043,16 +1193,6 @@
       document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
     });
 
-    // Close menu when clicking outside
-    mobileMenu.addEventListener('click', (e) => {
-      if (e.target === mobileMenu) {
-        hamburger.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // Close menu on link click
     document.querySelectorAll('.mobile-menu-item').forEach(item => {
       item.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -1061,202 +1201,138 @@
       });
     });
 
-    // Optimized Typewriter Effect
+    // ─── Typewriter ─────────────────────────────
     const words = ["Professional Event Host", "Master of Ceremonies", "Luxury Wedding Emcee", "Corporate Presenter"];
-    let i = 0, j = 0, currentWord = "", isDeleting = false;
+    let i = 0, j = 0, isDeleting = false;
+    const twEl = document.getElementById("typewriter");
 
     function type() {
-      currentWord = words[i];
-      const target = document.getElementById("typewriter");
-      
-      if (isDeleting) {
-        target.textContent = currentWord.substring(0, j - 1);
-        j--;
-        if (j == 0) { 
-          isDeleting = false; 
-          i = (i + 1) % words.length; 
-        }
-      } else {
-        target.textContent = currentWord.substring(0, j + 1);
-        j++;
-        if (j == currentWord.length) {
-          setTimeout(() => { isDeleting = true; }, 1500);
-        }
-      }
-      setTimeout(type, isDeleting ? 50 : 100);
+      const word = words[i];
+      const text = isDeleting ? word.substring(0, j - 1) : word.substring(0, j + 1);
+      twEl.innerHTML = text + '<span class="cursor"></span>';
+      isDeleting ? j-- : j++;
+      if (!isDeleting && j === word.length) { setTimeout(() => { isDeleting = true; }, 1600); }
+      if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; }
+      setTimeout(type, isDeleting ? 45 : 90);
     }
 
-    function initStatsCounter() {
-  const statNumbers = document.querySelectorAll('.stat-number');
-
-  statNumbers.forEach(stat => {
-    const target = parseInt(stat.getAttribute('data-target'));
-    
-    // Create a proxy object to animate the value
-    const countObj = { value: 0 };
-
-    gsap.to(countObj, {
-      value: target,
-      duration: 2.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".hero-stats",
-        start: "top 90%", // Starts when stats enter view
-      },
-      onUpdate: function() {
-        // Round the value and set text
-        stat.textContent = Math.floor(countObj.value);
-      }
-    });
-  });
-}
-
-// Call this inside your existing window 'load' event
-window.addEventListener('load', () => {
-  // ... other init functions
-  initStatsCounter();
-});
-
-     // 2. 60FPS Horizontal Scroll
-    function initHorizontal() {
-      const container = document.getElementById('horizontal-container');
-      
-      // Calculate how much to scroll: Total width of container minus viewport width
-      let scrollAmount = container.scrollWidth - window.innerWidth;
-
-      gsap.to(container, {
-        x: () => -scrollAmount - 100, // Move left
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".horizontal-wrapper",
-          pin: true, // Lock the section in place
-          start: "top 15%",
-          end: () => "+=" + scrollAmount,
-          scrub: 1, // Smoothly link scroll position to animation
-          invalidateOnRefresh: true, // Recalculate on resize
-          anticipatePin: 1
-        }
-      });
-    }
-
-    // 3. Reveal Animations
-    function initReveals() {
-      gsap.utils.toArray('.reveal-item').forEach(item => {
-        gsap.to(item, {
-          scrollTrigger: {
-            trigger: item,
-            start: "top 90%",
-            toggleActions: "play none none reverse"
-          },
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out"
+    // ─── Stats Counter ───────────────────────────
+    function initStats() {
+      document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseInt(el.getAttribute('data-target'));
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: target, duration: 2.5, ease: "power2.out",
+          scrollTrigger: { trigger: ".hero-stats", start: "top 90%" },
+          onUpdate() { el.textContent = Math.floor(obj.v); }
         });
       });
     }
 
-    window.addEventListener('load', () => {
-      type();
-      initHorizontal();
-      initReveals();
-      
-      // Force scroll refresh to ensure measurements are correct
-      ScrollTrigger.refresh();
-    });
+    // ─── Testimonials Infinite Slider ────────────
+    function initTestimonials() {
+      const track = document.getElementById('testimonialTrack');
+      const origCards = Array.from(track.children);
+      origCards.forEach(c => track.appendChild(c.cloneNode(true)));
 
-    // Handle Resize (Important for Horizontal Scroll measurements)
-    window.addEventListener('resize', () => {
-      ScrollTrigger.refresh();
-    });
+      const half = track.scrollWidth / 2;
+      gsap.to(track, {
+        x: -half, duration: 38, ease: "none", repeat: -1,
+        modifiers: { x: gsap.utils.unitize(x => parseFloat(x) % half) }
+      });
 
-    // Highly Optimized Scroll Animations for 60fps
-    function initScrollAnimations() {
-      const items = document.querySelectorAll('.reveal-item');
-      
-      ScrollTrigger.batch(items, {
-        onEnter: batch => {
-          gsap.to(batch, {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            stagger: 0.08,
-            overwrite: true
-          });
-        },
-        start: "top 85%",
-        once: true
+      track.addEventListener('mouseenter', () => gsap.globalTimeline.timeScale(0.1));
+      track.addEventListener('mouseleave', () => gsap.globalTimeline.timeScale(1));
+    }
+
+    // ─── Scroll Reveals ──────────────────────────
+    function initReveals() {
+      gsap.utils.toArray('.reveal-item').forEach(el => {
+        gsap.to(el, {
+          opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }
+        });
       });
     }
 
-    function initInfiniteSlider() {
-  const track = document.getElementById('testimonialTrack');
-  const cards = Array.from(track.children);
-  
-  // 1. Clone items to create the infinite loop effect
-  cards.forEach(card => {
-    const clone = card.cloneNode(true);
-    track.appendChild(clone);
-  });
+    // ─── Init on Load ────────────────────────────
+    // ─── Journey Map SVG Lines ───────────────────
+    function drawJourneyLines() {
+      const svg = document.getElementById('journeySvg');
+      const grid = document.getElementById('journeyGrid');
+      if (!svg || !grid) return;
 
-  // 2. Calculate the width of one full set
-  const totalWidth = track.scrollWidth / 2;
+      // Clear previous
+      svg.innerHTML = '';
 
-  // 3. The 60fps Animation
-  const slider = gsap.to(track, {
-    x: -totalWidth,
-    duration: 35, // Adjust speed (higher = slower)
-    ease: "none",
-    repeat: -1,
-    runBackwards: false,
-    modifiers: {
-      // This helper ensures it resets perfectly to 0 when it hits the end
-      x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+      const stops = Array.from(grid.querySelectorAll('.journey-stop'));
+      const mapRect = grid.closest('.journey-map').getBoundingClientRect();
+
+      // Get center of each pin
+      const centers = stops.map(stop => {
+        const pin = stop.querySelector('.pin-outer');
+        const r = pin.getBoundingClientRect();
+        return {
+          x: r.left + r.width / 2 - mapRect.left,
+          y: r.top + r.height / 2 - mapRect.top
+        };
+      });
+
+      // Draw curved path through all centers in order
+      if (centers.length < 2) return;
+
+      let d = `M ${centers[0].x} ${centers[0].y}`;
+      for (let i = 1; i < centers.length; i++) {
+        const prev = centers[i - 1];
+        const curr = centers[i];
+        // Cubic bezier for smooth curve
+        const cp1x = prev.x + (curr.x - prev.x) * 0.5;
+        const cp1y = prev.y;
+        const cp2x = prev.x + (curr.x - prev.x) * 0.5;
+        const cp2y = curr.y;
+        d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+      }
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'journey-path');
+
+      // Animate the path drawing
+      svg.appendChild(path);
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = `6 5`;
+      path.style.strokeDashoffset = len;
+      path.style.transition = 'stroke-dashoffset 2.5s ease';
+
+      // Trigger draw when in view
+      ScrollTrigger.create({
+        trigger: grid,
+        start: 'top 80%',
+        onEnter: () => {
+          path.style.strokeDashoffset = 0;
+        }
+      });
     }
-  });
 
-  // 4. Pause on Hover
-  track.addEventListener('mouseenter', () => {
-    gsap.to(slider, { timeScale: 0, duration: 0.5, ease: "power2.out" });
-  });
-
-  track.addEventListener('mouseleave', () => {
-    gsap.to(slider, { timeScale: 1, duration: 0.5, ease: "power2.in" });
-  });
-}
-
-// Initialize on load
-window.addEventListener('load', () => {
-  initInfiniteSlider();
-});
-
-    // GSAP Performance Config
-    gsap.config({
-      force3D: true,
-      nullTargetWarn: false
-    });
-
-    // Initialize
     window.addEventListener('load', () => {
       type();
-      initScrollAnimations();
-      
-      // Refresh ScrollTrigger after fonts load
+      initStats();
+      initTestimonials();
+      initReveals();
       document.fonts.ready.then(() => {
         ScrollTrigger.refresh();
+        drawJourneyLines();
       });
     });
 
-    // Mobile touch optimization
-    if ('ontouchstart' in window) {
-      document.body.style.cursor = 'pointer';
-    }
+    window.addEventListener('resize', () => {
+      ScrollTrigger.refresh();
+      drawJourneyLines();
+    });
 
-    // Passive event listeners for better scroll performance
+    // Passive scroll for mobile perf
     document.addEventListener('touchstart', () => {}, { passive: true });
     document.addEventListener('touchmove', () => {}, { passive: true });
   </script>
-
 </body>
-</html
+</html>
