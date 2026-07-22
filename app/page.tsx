@@ -96,7 +96,7 @@ export default function HomePage() {
         <div className="hero-scrim" />
         <MotionReveal className="hero-copy">
           <p className="eyebrow">Safar with Himanshu</p>
-          <h1>Best anchor in Udaipur for weddings, sangeet and premium events</h1>
+          <h1>Best Anchor in Udaipur for Weddings, Corporate and premium events</h1>
           <p className="lede">
             Anchor Himanshu Paliwal brings clear speech, warm Hindi-English hosting, crowd engagement, and calm stage control to weddings,
             corporate events, government programs, DJ parties, sangeet nights, birthdays, anniversaries, and baby showers.

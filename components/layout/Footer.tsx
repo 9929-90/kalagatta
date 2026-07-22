@@ -77,7 +77,10 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <p className="footer-wordmark">Himanshu</p>
+      <div className="footer-wordmark-stack" aria-label="Anchor Himanshu">
+        <p className="footer-wordmark footer-wordmark-anchor">Anchor</p>
+        <p className="footer-wordmark">Himanshu</p>
+      </div>
       <div className="footer-bottom">
         <span>{siteConfig.location}</span>
         <span>Copyright 2026 {siteConfig.name}</span>

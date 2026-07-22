@@ -1124,14 +1124,22 @@ textarea {
   color: inherit;
 }
 
-.footer-wordmark {
+.footer-wordmark-stack {
   margin: clamp(36px, 8vw, 88px) 0 -0.18em;
+}
+
+.footer-wordmark {
+  margin: 0;
   color: #FFFFFF;
   font-size: clamp(4.5rem, 19vw, 19rem);
   font-weight: 900;
   line-height: 0.78;
   letter-spacing: -0.06em;
   white-space: nowrap;
+}
+
+.footer-wordmark-anchor {
+  font-size: clamp(3.5rem, 15vw, 15rem);
 }
 
 .footer-bottom {
@@ -1293,13 +1301,20 @@ textarea {
     margin-bottom: 28px;
   }
 
-  .footer-wordmark {
+  .footer-wordmark-stack {
     margin-top: 40px;
     max-width: 100%;
+  }
+
+  .footer-wordmark {
     font-size: clamp(3.15rem, 18vw, 4.85rem);
     line-height: 0.88;
     letter-spacing: 0;
     white-space: nowrap;
+  }
+
+  .footer-wordmark-anchor {
+    font-size: clamp(2.72rem, 15vw, 4.15rem);
   }
 
   .footer-bottom {
